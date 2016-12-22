@@ -13,7 +13,7 @@ use yii\widgets\LinkPager;
 /**
  * mongodb 数据库操作底层服务
  * @time      2016-07-14
- * @author    WQ   <577729657@qq.com>
+ * @author    LZY   <343245241@qq.com>
  */
 class MongoService extends BaseService{
 
@@ -59,7 +59,6 @@ class MongoService extends BaseService{
         $count1 = $this->getCount($database1,$where,$like,$or);
         $count2 = $this->getCount($database2,$where,$like,$or);
         $count = $count1 + $count2;  //获取查询数据的总数
-
         $pag = $this->createPage($pagesize,$count);   //生成分页代码
         $data['page'] = $pag['page'];
         $data['count'] = $count;
@@ -67,7 +66,6 @@ class MongoService extends BaseService{
         $data['data'] = $this->selectAll($database1,$where,$order,$filed=null,$pag['pagination']->offset,$pag['pagination']->limit,$like,$or);
         if(count($data['data']) < $pagesize) {
             $data2 = $this->selectAll($database2,$where,$order,$filed=null,$pag['pagination']->offset,$pag['pagination']->limit - count($data['data']),$like,$or);
-//            var_dump($data['data']); var_dump($data2);exit();
             $data['data'] = array_merge($data['data'], $data2);
         }
         return $data;
